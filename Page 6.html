@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Proj Effort Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f5f7fa;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .table-header {
+            background: linear-gradient(135deg, #0070F2 0%, #004065 100%);
+        }
+        .interface-row {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .interface-row:last-child {
+            border-bottom: none;
+        }
+        .complexity-badge {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .badge-simple {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+        .badge-medium {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+        .badge-complex {
+            background-color: #FFEBEE;
+            color: #C62828;
+        }
+        .setup-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 0;
+            font-size: 11px;
+        }
+        .total-row {
+            background: linear-gradient(135deg, #0070F2 0%, #004065 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white h-24 flex items-center px-12 border-b-4 border-blue-600 relative overflow-hidden shrink-0">
+        <div class="absolute right-0 top-0 h-full w-1/3 opacity-10" style="background-color: #0070F2; transform: skewX(-20deg) translateX(50px);"></div>
+        <div class="z-10 flex items-center w-full justify-between">
+            <div class="flex items-center gap-4">
+                <div class="h-10 w-10 bg-blue-600 rounded flex items-center justify-center text-white text-xl cursor-pointer hover:bg-blue-700 transition-colors" onclick="goToAgenda()" title="Go to Agenda">
+                    <i class="fa-solid fa-file-invoice"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 tracking-tight">Project Effort Estimation - Example</h1>
+                </div>
+            </div>
+            <div class="text-right">
+                <img src="logos/motiveminds-logo.png" alt="Motiveminds Logo" style="height: 100px;">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-hidden">
+
+        <div class="bg-white rounded-xl card-shadow overflow-hidden h-full flex flex-col">
+
+            <!-- Table Header -->
+            <div class="table-header text-white shrink-0">
+                <div class="grid grid-cols-12 gap-0">
+                    <div class="col-span-4 px-4 py-2.5 font-bold text-sm border-r border-blue-400 border-opacity-30">Interface</div>
+                    <div class="col-span-2 px-3 py-2.5 font-bold text-sm text-center border-r border-blue-400 border-opacity-30">Type of iFlow</div>
+                    <div class="col-span-4 px-3 py-2.5 font-bold text-sm text-center border-r border-blue-400 border-opacity-30">CPI Setup Breakdown</div>
+                    <div class="col-span-2 px-3 py-2.5 font-bold text-sm text-center">Total Days</div>
+                </div>
+            </div>
+
+            <!-- Table Body - No scroll -->
+            <div class="flex-1 flex flex-col">
+
+                <!-- Interface 1: Appointment Replication -->
+                <div class="interface-row grid grid-cols-12 gap-0 flex-1">
+                    <div class="col-span-4 px-4 py-2 flex items-center border-r border-gray-100">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Appointment Replication</p>
+                            <p class="text-xs text-gray-400">SCV2 → Datasphere</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center border-r border-gray-100">
+                        <span class="complexity-badge badge-medium">Medium Complex</span>
+                    </div>
+                    <div class="col-span-4 px-4 py-2 border-r border-gray-100 flex flex-col justify-center">
+                        <div class="setup-row"><span class="text-gray-500">Requirement Gathering</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">iFlow Build</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Testing</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Documentation</span><span class="font-semibold text-gray-700">0.5</span></div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center" style="background-color: #EBF4FF;">
+                        <span class="text-xl font-bold" style="color: #0070F2;">5.5</span>
+                    </div>
+                </div>
+
+                <!-- Interface 2: User Replication -->
+                <div class="interface-row grid grid-cols-12 gap-0 flex-1">
+                    <div class="col-span-4 px-4 py-2 flex items-center border-r border-gray-100">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">User Replication</p>
+                            <p class="text-xs text-gray-400">SCV2 → Datasphere</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center border-r border-gray-100">
+                        <span class="complexity-badge badge-complex">Complex</span>
+                    </div>
+                    <div class="col-span-4 px-4 py-2 border-r border-gray-100 flex flex-col justify-center">
+                        <div class="setup-row"><span class="text-gray-500">Requirement Gathering</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">iFlow Build</span><span class="font-semibold text-gray-700">3</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Testing</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Documentation</span><span class="font-semibold text-gray-700">0.5</span></div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center" style="background-color: #EBF4FF;">
+                        <span class="text-xl font-bold" style="color: #0070F2;">7.5</span>
+                    </div>
+                </div>
+
+                <!-- Interface 3: Sales Quote Replication -->
+                <div class="interface-row grid grid-cols-12 gap-0 flex-1">
+                    <div class="col-span-4 px-4 py-2 flex items-center border-r border-gray-100">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Sales Quote Replication</p>
+                            <p class="text-xs text-gray-400">SCV2 → Datasphere</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center border-r border-gray-100">
+                        <span class="complexity-badge badge-medium">Medium Complex</span>
+                    </div>
+                    <div class="col-span-4 px-4 py-2 border-r border-gray-100 flex flex-col justify-center">
+                        <div class="setup-row"><span class="text-gray-500">Requirement Gathering</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">iFlow Build</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Testing</span><span class="font-semibold text-gray-700">2</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Documentation</span><span class="font-semibold text-gray-700">0.5</span></div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center" style="background-color: #EBF4FF;">
+                        <span class="text-xl font-bold" style="color: #0070F2;">5.5</span>
+                    </div>
+                </div>
+
+                <!-- Interface 4: Task Replication -->
+                <div class="interface-row grid grid-cols-12 gap-0 flex-1">
+                    <div class="col-span-4 px-4 py-2 flex items-center border-r border-gray-100">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Task Replication</p>
+                            <p class="text-xs text-gray-400">SCV2 → Datasphere</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center border-r border-gray-100">
+                        <span class="complexity-badge badge-simple">Simple</span>
+                    </div>
+                    <div class="col-span-4 px-4 py-2 border-r border-gray-100 flex flex-col justify-center">
+                        <div class="setup-row"><span class="text-gray-500">Requirement Gathering</span><span class="font-semibold text-gray-700">0.5</span></div>
+                        <div class="setup-row"><span class="text-gray-500">iFlow Build</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Testing</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Documentation</span><span class="font-semibold text-gray-700">0.5</span></div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center" style="background-color: #EBF4FF;">
+                        <span class="text-xl font-bold" style="color: #0070F2;">3</span>
+                    </div>
+                </div>
+
+                <!-- Interface 5: Phone Call Replication -->
+                <div class="interface-row grid grid-cols-12 gap-0 flex-1">
+                    <div class="col-span-4 px-4 py-2 flex items-center border-r border-gray-100">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Phone Call Replication</p>
+                            <p class="text-xs text-gray-400">SCV2 → Datasphere</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center border-r border-gray-100">
+                        <span class="complexity-badge badge-simple">Simple</span>
+                    </div>
+                    <div class="col-span-4 px-4 py-2 border-r border-gray-100 flex flex-col justify-center">
+                        <div class="setup-row"><span class="text-gray-500">Requirement Gathering</span><span class="font-semibold text-gray-700">0.5</span></div>
+                        <div class="setup-row"><span class="text-gray-500">iFlow Build</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Testing</span><span class="font-semibold text-gray-700">1</span></div>
+                        <div class="setup-row"><span class="text-gray-500">Documentation</span><span class="font-semibold text-gray-700">0.5</span></div>
+                    </div>
+                    <div class="col-span-2 px-3 py-2 flex items-center justify-center" style="background-color: #EBF4FF;">
+                        <span class="text-xl font-bold" style="color: #0070F2;">3</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Total Row -->
+            <div class="total-row text-white shrink-0">
+                <div class="grid grid-cols-12 gap-0">
+                    <div class="col-span-4 px-4 py-3 font-bold text-base flex items-center">
+                        <i class="fa-solid fa-calculator mr-3"></i>
+                        Total Estimated Days
+                    </div>
+                    <div class="col-span-2 px-3 py-3 text-center border-l border-blue-400 border-opacity-30 flex items-center justify-center">
+                        <span class="text-sm opacity-90">5 Interfaces</span>
+                    </div>
+                    <div class="col-span-4 px-3 py-3 text-center border-l border-blue-400 border-opacity-30 flex items-center justify-center">
+                        <span class="text-sm opacity-90">2 Simple &bull; 2 Medium &bull; 1 Complex</span>
+                    </div>
+                    <div class="col-span-2 px-3 py-3 flex items-center justify-center border-l border-blue-400 border-opacity-30" style="background-color: rgba(255,255,255,0.15);">
+                        <span class="text-2xl font-black">24.5</span>
+                        <span class="text-sm ml-2 opacity-80">Days</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer Strip -->
+    <footer class="h-3 bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-600 shrink-0"></footer>
+
+    <script>
+    function goToAgenda() {
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'navigateToSlide', file: 'Page 1.html' }, '*');
+        } else {
+            window.location.href = 'Page 1.html';
+        }
+    }
+    </script>
+</body>
+</html>

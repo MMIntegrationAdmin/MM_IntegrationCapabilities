@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Title Slide</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f5f7fa;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .title-main {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: #1E293B;
+        }
+        .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #64748B;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #0070F2 0%, #00B8F5 100%);
+            border-radius: 12px;
+            padding: 24px 32px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 0 24px;
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+        .stat-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .divider-vertical {
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .prepared-for {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 16px 24px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col">
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10 overflow-hidden">
+        <div class="bg-white rounded-xl card-shadow h-full flex flex-col relative">
+
+            <!-- Logo Section -->
+            <div class="absolute top-6 right-8">
+                <img src="logos/motiveminds-logo.png" alt="Motiveminds Logo" style="height: 100px;">
+            </div>
+
+            <!-- Top Section - Main Title -->
+            <div class="flex-1 flex items-center justify-center p-12">
+                <div class="text-center max-w-3xl">
+                    <!-- <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Enterprise Integration Excellence</span>
+                    </div> -->
+
+                    <h1 class="title-main mb-4">
+                        SAP Integration Services
+                    </h1>
+
+                    <!-- <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 mx-auto mb-6 rounded"></div> -->
+
+                    <p class="subtitle">
+                        Capabilities Overview
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Section - Prepared For Info -->
+            <div class="px-12 pb-10">
+                <div class="flex items-center justify-center">
+                    <!-- Prepared For Section -->
+                    <div class="prepared-for flex items-center gap-6">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Prepared For</p>
+                            <p class="text-xl font-bold text-gray-800">Infosys</p>
+                        </div>
+                        <div class="w-px h-10 bg-gray-200"></div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Date</p>
+                            <p class="text-base font-medium text-gray-700">February 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Strip -->
+    <footer class="h-3 bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-600 shrink-0"></footer>
+
+</body>
+</html>

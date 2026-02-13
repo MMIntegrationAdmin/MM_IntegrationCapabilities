@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP PO to CPI Migration - Presentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --scale: 1;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #1a1a2e;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Main wrapper */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Presentation container */
+        .presentation-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            transform: scale(var(--scale));
+            transform-origin: center center;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slide iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .slide.interactive iframe {
+            pointer-events: auto;
+        }
+
+        /* Edge navigation zones */
+        .nav-zone {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 60px;
+            z-index: 50;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-zone:hover {
+            opacity: 1;
+        }
+
+        .nav-zone.left {
+            left: 0;
+            background: linear-gradient(to right, rgba(0, 112, 242, 0.3), transparent);
+        }
+
+        .nav-zone.right {
+            right: 0;
+            background: linear-gradient(to left, rgba(0, 112, 242, 0.3), transparent);
+        }
+
+        /* Slide counter */
+        .slide-counter {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            z-index: 60;
+        }
+
+        /* Fullscreen button */
+        .fullscreen-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 60;
+            transition: background 0.2s;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 112, 242, 0.8);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0070F2, #00B8F5);
+            transition: width 0.3s ease;
+            z-index: 60;
+        }
+
+        /* Fullscreen styles */
+        body.fullscreen {
+            background: #000;
+        }
+
+        body.fullscreen .wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        body.fullscreen .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="presentation-container" id="presentationContainer">
+            <!-- Navigation zones -->
+            <div class="nav-zone left" id="navLeft"></div>
+            <div class="nav-zone right" id="navRight"></div>
+
+            <!-- Fullscreen button -->
+            <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+
+            <!-- Slide counter -->
+            <div class="slide-counter" id="slideCounter">1 / 12</div>
+
+            <!-- Progress bar -->
+            <div class="progress-bar" id="progressBar"></div>
+
+            <!-- Slides container -->
+            <div id="slidesContainer"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const slides = [
+            { file: 'Page 0.html', title: 'Title Slide', interactive: false },
+            { file: 'Page 1.html', title: 'Agenda', interactive: true },
+            { file: 'Page 2.html', title: 'SAP Integration Excellence', interactive: true },
+            { file: 'Page 3.html', title: 'Experience', interactive: true },
+            { file: 'Page 4.html', title: 'Slide 4', interactive: true },
+            { file: 'Page 5.html', title: 'Migration Approach', interactive: true },
+            { file: 'Page 6.html', title: 'Slide 6', interactive: true },
+            { file: 'Page 7.html', title: 'Slide 7', interactive: true },
+            { file: 'Page 8.html', title: 'Migration Plan', interactive: true },
+            { file: 'Page 9.html', title: 'Tools & Accelerators', interactive: true },
+            { file: 'Page 10.html', title: 'Team Structure', interactive: true },
+            { file: 'Page 11.html', title: 'Complex Integration Scenarios', interactive: true }
+        ];
+
+        let currentSlide = 0;
+        let scrollTimeout = null;
+
+        // Initialize
+        function init() {
+            const container = document.getElementById('slidesContainer');
+
+            slides.forEach((slide, i) => {
+                // Create slide
+                const div = document.createElement('div');
+                div.className = 'slide' + (i === 0 ? ' active' : '') + (slide.interactive ? ' interactive' : '');
+                div.innerHTML = `<iframe src="${slide.file}" loading="lazy"></iframe>`;
+                container.appendChild(div);
+            });
+
+            update();
+        }
+
+        // Listen for navigation messages from iframes (for Agenda page)
+        window.addEventListener('message', (e) => {
+            if (e.data && e.data.type === 'navigateToSlide') {
+                const targetFile = e.data.file;
+                const targetIndex = slides.findIndex(s => s.file === targetFile);
+                if (targetIndex !== -1) {
+                    goTo(targetIndex);
+                }
+            }
+        });
+
+        // Go to slide
+        function goTo(index) {
+            if (index < 0 || index >= slides.length) return;
+
+            document.querySelectorAll('.slide')[currentSlide].classList.remove('active');
+            currentSlide = index;
+            document.querySelectorAll('.slide')[currentSlide].classList.add('active');
+
+            update();
+        }
+
+        function next() { if (currentSlide < slides.length - 1) goTo(currentSlide + 1); }
+        function prev() { if (currentSlide > 0) goTo(currentSlide - 1); }
+
+        function update() {
+            const text = `${currentSlide + 1} / ${slides.length}`;
+            document.getElementById('slideCounter').textContent = text;
+
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                document.body.classList.add('fullscreen');
+            } else {
+                document.exitFullscreen();
+                document.body.classList.remove('fullscreen');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('navLeft').onclick = prev;
+        document.getElementById('navRight').onclick = next;
+        document.getElementById('fullscreenBtn').onclick = toggleFullscreen;
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+            if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+            if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
+            if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+        });
+
+        // Mouse wheel
+        document.getElementById('presentationContainer').addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => { scrollTimeout = null; }, 400);
+            if (e.deltaY > 0) next(); else prev();
+        }, { passive: false });
+
+        // Fullscreen change
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) document.body.classList.remove('fullscreen');
+        });
+
+        // Calculate scale
+        function calculateScale() {
+            const container = document.getElementById('presentationContainer');
+            const wrapper = document.querySelector('.wrapper');
+
+            // Get available space (with some padding)
+            const availableWidth = window.innerWidth - 40;
+            const availableHeight = window.innerHeight - 40;
+
+            // Calculate scale to fit
+            const scaleX = availableWidth / 1280;
+            const scaleY = availableHeight / 720;
+            const scale = Math.min(scaleX, scaleY, 1); // Don't scale up beyond 1
+
+            document.documentElement.style.setProperty('--scale', scale);
+        }
+
+        // Recalculate on resize
+        window.addEventListener('resize', calculateScale);
+
+        // Start
+        calculateScale();
+        init();
+    </script>
+</body>
+</html>

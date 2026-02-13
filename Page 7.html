@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Migration Approach</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f5f7fa;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .wave-connector {
+            position: relative;
+        }
+        .wave-connector::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            width: 24px;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #0070F2 0, #0070F2 4px, transparent 4px, transparent 8px);
+        }
+        .wave-connector:last-child::after {
+            display: none;
+        }
+        .parallel-bar {
+            background: repeating-linear-gradient(
+                90deg,
+                #0070F2 0,
+                #0070F2 8px,
+                transparent 8px,
+                transparent 12px
+            );
+            height: 3px;
+            opacity: 0.4;
+        }
+        .wave-bracket {
+            position: relative;
+        }
+        .wave-bracket::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            border: 2px solid #0070F2;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white h-24 flex items-center px-12 border-b-4 border-blue-600 relative overflow-hidden shrink-0">
+        <div class="absolute right-0 top-0 h-full w-1/3 opacity-10" style="background-color: #0070F2; transform: skewX(-20deg) translateX(50px);"></div>
+        <div class="z-10 flex items-center w-full justify-between">
+            <div class="flex items-center gap-4">
+                <div class="h-10 w-10 bg-blue-600 rounded flex items-center justify-center text-white text-xl cursor-pointer hover:bg-blue-700 transition-colors" onclick="goToAgenda()" title="Go to Agenda">
+                    <i class="fa-solid fa-route"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 tracking-tight">SAP PO → SAP CPI (Migration Approach)</h1>
+                    <!-- <p class="text-sm text-gray-500 font-medium tracking-wide uppercase mt-1">Migration Strategy</p> -->
+                </div>
+            </div>
+            <div class="text-right">
+                <img src="logos/motiveminds-logo.png" alt="Motiveminds Logo" style="height: 100px;">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10 flex flex-col gap-6 overflow-hidden">
+
+        <!-- Top row: Timeline / Waves -->
+        <div class="flex gap-6 flex-1">
+
+            <!-- Planning -->
+            <div class="bg-white rounded-xl card-shadow overflow-hidden flex flex-col relative" style="width: 220px; flex-shrink: 0;">
+                <div class="h-2 w-full" style="background-color: #E6A817;"></div>
+                <div class="p-3 flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: #FFF4D6; color: #B8860B;">
+                            <i class="fa-solid fa-lightbulb text-xs"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800">Planning</h2>
+                            <p class="text-xs text-gray-400">4 Weeks</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 1: Assessment -->
+                    <div class="bg-amber-50 rounded-lg p-2 mb-2 border border-amber-100">
+                        <h3 class="text-xs font-bold mb-1" style="color: #B8860B;">Phase 1: Assessment</h3>
+                        <div class="space-y-1 mb-1.5">
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-check text-xs" style="color: #B8860B;"></i>
+                                    <p class="text-xs font-medium text-gray-700">Discovery & Inventory</p>
+                                </div>
+                                <p class="text-xs text-gray-400 italic ml-4">Catalog all SAP PO interfaces & artifacts</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-check text-xs" style="color: #B8860B;"></i>
+                                    <p class="text-xs font-medium text-gray-700">Migration Assessment</p>
+                                </div>
+                                <p class="text-xs text-gray-400 italic ml-4">Evaluate complexity and migration approach</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-check text-xs" style="color: #B8860B;"></i>
+                                    <p class="text-xs font-medium text-gray-700">Wave & Sprint Plan</p>
+                                </div>
+                                <p class="text-xs text-gray-400 italic ml-4">Group interfaces by business process & dependencies</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-amber-200 pt-1">
+                            <p class="text-xs font-medium text-gray-600"><i class="fa-solid fa-file-lines text-xs mr-1" style="color: #B8860B;"></i>Interface Inventory</p>
+                            <p class="text-xs font-medium text-gray-600"><i class="fa-solid fa-file-lines text-xs mr-1" style="color: #B8860B;"></i>Time, Effort & Cost Estimate</p>
+                        </div>
+                    </div>
+
+                    <!-- Client Approval Gate -->
+                    <div class="flex-1 flex items-center justify-center">
+                        <div class="flex items-center gap-1 text-gray-400">
+                            <span class="text-xs">· · ·</span>
+                            <i class="fa-solid fa-thumbs-up text-xs"></i>
+                            <span class="text-xs italic">Client Approval</span>
+                            <span class="text-xs">· · ·</span>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2: Design -->
+                    <div class="bg-amber-50 rounded-lg p-2 border border-amber-100 mt-auto">
+                        <h3 class="text-xs font-bold mb-1" style="color: #B8860B;">Phase 2: Design</h3>
+                        <div class="space-y-1 mb-1.5">
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-check text-xs" style="color: #B8860B;"></i>
+                                    <p class="text-xs font-medium text-gray-700">Plan Target Architecture</p>
+                                </div>
+                                <p class="text-xs text-gray-400 italic ml-4">Design CPI landscape & connectivity</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-check text-xs" style="color: #B8860B;"></i>
+                                    <p class="text-xs font-medium text-gray-700">Define Standards</p>
+                                </div>
+                                <p class="text-xs text-gray-400 italic ml-4">Naming, coding & error handling guidelines</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-amber-200 pt-1">
+                            <p class="text-xs font-medium text-gray-600"><i class="fa-solid fa-file-lines text-xs mr-1" style="color: #B8860B;"></i>Architecture Document</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow Connector -->
+            <div class="flex items-center justify-center" style="width: 40px;">
+                <i class="fa-solid fa-chevron-right text-xl" style="color: #0070F2; opacity: 0.5;"></i>
+            </div>
+
+            <!-- Wave Section -->
+            <div class="flex-1 flex flex-col relative">
+                <!-- Wave Label Badge -->
+                <div class="flex items-center justify-center mb-3">
+                    <div class="flex items-center gap-2 px-4 py-1.5 rounded-full" style="background: linear-gradient(90deg, #0070F2 0%, #0A2540 100%);">
+                        <i class="fa-solid fa-layer-group text-white text-xs"></i>
+                        <span class="text-xs font-bold text-white tracking-wide">WAVE STRUCTURE</span>
+                        <span class="text-xs text-white opacity-80">• 5 Weeks</span>
+                    </div>
+                </div>
+
+                <!-- Sprint Cards Container -->
+                <div class="flex gap-4 flex-1 wave-bracket">
+
+                    <!-- Sprint 1 -->
+            <div class="flex-1 bg-white rounded-xl card-shadow overflow-hidden flex flex-col relative">
+                <div class="h-2 w-full" style="background-color: #00B8F5;"></div>
+                <div class="p-4 flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white" style="background-color: #00B8F5;">
+                            <span class="text-xs font-black">S1</span>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800">Sprint 1</h2>
+                            <p class="text-xs text-gray-400">1 Week</p>
+                        </div>
+                    </div>
+                    <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #00B8F5; border-color: #00B8F5;">Activities</h3>
+                    <div class="space-y-0.5 mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #00B8F5;"></i>
+                            <p class="text-xs text-gray-700">Analyse current wave interfaces</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #00B8F5;"></i>
+                            <p class="text-xs text-gray-700">Migrate Simple Interfaces</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #00B8F5;"></i>
+                            <p class="text-xs text-gray-700">Unit Testing Simple iFlows</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #00B8F5;"></i>
+                            <p class="text-xs text-gray-700">Defect Resolution</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #00B8F5; border-color: #00B8F5;">Deliverables</h3>
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #00B8F5;"></i>
+                                <p class="text-xs text-gray-700">Analysis Document</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #00B8F5;"></i>
+                                <p class="text-xs text-gray-700">Simple iFlows</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #00B8F5;"></i>
+                                <p class="text-xs text-gray-700">Unit Test Cases & Results</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 2 -->
+            <div class="flex-1 bg-white rounded-xl card-shadow overflow-hidden flex flex-col relative">
+                <div class="h-2 w-full" style="background-color: #0070F2;"></div>
+                <div class="p-4 flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center" style="color: #0070F2;">
+                            <span class="text-xs font-black">S2</span>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800">Sprint 2</h2>
+                            <p class="text-xs text-gray-400">2 Weeks</p>
+                        </div>
+                    </div>
+                    <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #0070F2; border-color: #0070F2;">Activities</h3>
+                    <div class="space-y-0.5 mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0070F2;"></i>
+                            <p class="text-xs text-gray-700">Semi Automate / Rebuild Medium Complex Interfaces</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0070F2;"></i>
+                            <p class="text-xs text-gray-700">Semi Automate / Rebuild Complex Interfaces</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0070F2;"></i>
+                            <p class="text-xs text-gray-700">Unit Testing</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0070F2;"></i>
+                            <p class="text-xs text-gray-700">Defect Resolution</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #0070F2; border-color: #0070F2;">Deliverables</h3>
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0070F2;"></i>
+                                <p class="text-xs text-gray-700">Medium & Complex iFlows</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0070F2;"></i>
+                                <p class="text-xs text-gray-700">Unit Test Cases & Results</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0070F2;"></i>
+                                <p class="text-xs text-gray-700">Defect Log & Fixes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 3 -->
+            <div class="flex-1 bg-white rounded-xl card-shadow overflow-hidden flex flex-col relative">
+                <div class="h-2 w-full" style="background-color: #0A2540;"></div>
+                <div class="p-4 flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: #dce8fd; color: #0A2540;">
+                            <span class="text-xs font-black">S3</span>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800">Sprint 3</h2>
+                            <p class="text-xs text-gray-400">1 Week</p>
+                        </div>
+                    </div>
+                    <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #0A2540; border-color: #0A2540;">Activities</h3>
+                    <div class="space-y-0.5 mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0A2540;"></i>
+                            <p class="text-xs text-gray-700">User Acceptance Testing</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0A2540;"></i>
+                            <p class="text-xs text-gray-700">UAT Defect Resolution</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0A2540;"></i>
+                            <p class="text-xs text-gray-700">Production Cutover</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #0A2540;"></i>
+                            <p class="text-xs text-gray-700">Go-Live Support</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #0A2540; border-color: #0A2540;">Deliverables</h3>
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0A2540;"></i>
+                                <p class="text-xs text-gray-700">UAT confirmation by Client</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0A2540;"></i>
+                                <p class="text-xs text-gray-700">Cutover Runbook Completion</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #0A2540;"></i>
+                                <p class="text-xs text-gray-700">Tech Spec documents</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hypercare -->
+            <div class="flex-1 bg-white rounded-xl card-shadow overflow-hidden flex flex-col relative">
+                <div class="h-2 w-full" style="background-color: #FF6B35;"></div>
+                <div class="p-4 flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white" style="background-color: #FF6B35;">
+                            <i class="fa-solid fa-heart-pulse text-xs"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-gray-800">Hypercare</h2>
+                            <p class="text-xs text-gray-400">1 Week</p>
+                        </div>
+                    </div>
+                    <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #FF6B35; border-color: #FF6B35;">Activities</h3>
+                    <div class="space-y-0.5 mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #FF6B35;"></i>
+                            <p class="text-xs text-gray-700">Post Go-Live Monitoring</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #FF6B35;"></i>
+                            <p class="text-xs text-gray-700">Issue Resolution</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #FF6B35;"></i>
+                            <p class="text-xs text-gray-700">Performance Tuning</p>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-xs" style="color: #FF6B35;"></i>
+                            <p class="text-xs text-gray-700">Knowledge Transfer</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <h3 class="text-xs font-semibold mb-1 border-l-4 pl-2" style="color: #FF6B35; border-color: #FF6B35;">Deliverables</h3>
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #FF6B35;"></i>
+                                <p class="text-xs text-gray-700">Daily Monitoring Report</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #FF6B35;"></i>
+                                <p class="text-xs text-gray-700">Consolidated Hypercare Report</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-lines text-xs" style="color: #FF6B35;"></i>
+                                <p class="text-xs text-gray-700">Fixes (If required)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+
+                <!-- Notes (below bracket) -->
+                <div class="flex flex-col items-start mt-5 gap-1">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-sm" style="color: #0070F2;"></i>
+                        <p class="text-xs text-gray-600">
+                            PI/PO system access, SAP Integration Suite tenant access & PO to CPI connectivity via cloud connector to be in place before the planning phases commence.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-sm" style="color: #0070F2;"></i>
+                        <p class="text-xs text-gray-600">
+                            Very Complex Interfaces are handled separately across multiple waves. Timeline for these interfaces are finalized during the planning phases.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-sm" style="color: #0070F2;"></i>
+                        <p class="text-xs text-gray-600">
+                            SAP's built in Migration tool will be leveraged for artifact migration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- End Wave Section -->
+
+        </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Strip -->
+    <footer class="h-3 bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-600 shrink-0"></footer>
+
+    <script>
+    function goToAgenda() {
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'navigateToSlide', file: 'Page 1.html' }, '*');
+        } else {
+            window.location.href = 'Page 1.html';
+        }
+    }
+    </script>
+</body>
+</html>
